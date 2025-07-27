@@ -42,8 +42,8 @@ def add_task():
         "completed": False
     }
     result = tasks.insert_one(task)
-    task["id"] = str(result.inserted_id)
-    return jsonify(task), 201
+    task["_id"] = result.inserted_id  # add _id to use serialize_task
+    return jsonify(serialize_task(task)), 201
 
 # 2. Get active tasks
 @app.route('/tasks/active', methods=['GET'])
